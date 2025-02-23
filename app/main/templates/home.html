@@ -1,0 +1,75 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<!-- Flash messages for success or error -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div>
+                {% for category, message in messages %}
+                    <div style="position: relative; margin-bottom: 15px; padding: 10px; border-radius: 4px; width: 90%; margin: 10px auto; text-align: center; border: 1px solid transparent;
+                                {% if category == 'success' %}
+                                    background-color: #dff0d8; border-color: #d0e9c6; color: #3c763d;
+                                {% elif category == 'error' %}
+                                    background-color: #f2dede; border-color: #ebccd1; color: #a94442;
+                                {% else %}
+                                    background-color: #d9edf7; border-color: #bcdff1; color: #31708f;
+                                {% endif %}"
+                         class="flash-message">
+                        <!-- X button to close the message -->
+                        <button onclick="this.parentElement.style.display='none';" style="position: absolute; top: 5px; right: 10px; background: none; border: none; font-size: 16px; color: inherit; cursor: pointer;">&times;</button>
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+<div class="content">
+    <h2 style="color: #4682b4; text-align: center;">Inventory</h2>
+    <div style="text-align: center; margin-bottom: 20px;">
+        <button type="button" onclick="window.location.href='{{ url_for('main.home') }}'" style="background-color: #4682b4; color: #fff; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; margin-right: 10px;">All Items</button>
+        <button type="button" onclick="window.location.href='{{ url_for('main.my_items') }}'" style="background-color: #4682b4; color: #fff; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">My Items</button>
+    </div>
+    <table style="width: 90%; border-collapse: collapse; font-size: 18px; margin: 20px auto;">
+        <thead style="background-color: #4682b4; color: #fff;">
+            <tr>
+                <th style="padding: 12px; border: 1px solid #fff;">Number</th>
+                <th style="padding: 12px; border: 1px solid #fff;">Description</th>
+                <th style="padding: 12px; border: 1px solid #fff;">Registration Date</th>
+                <th style="padding: 12px; border: 1px solid #fff;">Status</th>
+                <th style="padding: 12px; border: 1px solid #fff;">Available</th>
+                <th style="padding: 12px; border: 1px solid #fff;"></th>
+            </tr>
+        </thead>
+        <tbody id="inventory-table">
+            {% for item in inventory %}
+            <tr style="background-color: {% if loop.index0 % 2 == 0 %} #f5f5f5 {% else %} #ffffff {% endif %}; color: #333;">
+                <td style="padding: 12px; border: 1px solid #fff;">{{ item.number }}</td>
+                <td style="padding: 12px; border: 1px solid #fff;">{{ item.description }}</td>
+                <td style="padding: 12px; border: 1px solid #fff;">{{ item.registration_date }}</td>
+                <td style="padding: 12px; border: 1px solid #fff;">{{ item.status }}</td>
+                <td style="padding: 12px; border: 1px solid #fff;">{{ item.booked }}</td>
+                <td style="padding: 12px; border: 1px solid #fff;">
+                    {% if item.booked == 'Free' and item.status == 'OK' %}
+                        <!-- display 'Book' button if the item is free -->
+                        <form method="post" action="{{ url_for('main.book_release_item', item_id=item.id) }}">
+                            <input type="submit" value="Book" style="background-color: #4682b4; color: #fff; padding: 10px; border: none; border-radius: 5px; cursor: pointer;">
+                        </form>
+                    {% elif item.user_id == current_user.user_id or current_user.user_name == 'admin' and  item.booked != 'Free'%}
+                        <!-- display 'Release' button if the item is currently booked by the user -->
+                        <form method="post" action="{{ url_for('main.book_release_item', item_id=item.id) }}">
+                            <input type="submit" value="Release" style="background-color: #4682b4; color: #fff; padding: 10px; border: none; border-radius: 5px; cursor: pointer;">
+                        </form>
+                    {% else %}
+                        <!-- show the name of the user who has booked the item only if another user booked it -->
+                        <span>{{ item.owner.user_name if item.owner else '' }}</span>
+                    {% endif %}
+                </td>
+
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

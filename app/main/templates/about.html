@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="content">
+    <h2>About Yuki Shop</h2>
+    <p>Welcome to Yuki Shop, your go-to destination for renting top-notch winter sports gear and equipment! We specialize in providing a wide range of rental options for ski and snowboard enthusiasts. Whether you're a seasoned pro or just starting out, we have everything you need to hit the slopes in style and comfort.</p>
+    <p>Our inventory includes a diverse selection of rental products, from skis, snowboards, and boots to jackets, helmets, and gloves. We carry the latest models from the most trusted brands in the industry, ensuring that you have access to high-quality gear for your winter adventures.</p>
+    <p>At Yuki Shop, we're passionate about winter sports and are dedicated to helping you have the best experience possible. Our knowledgeable staff is always here to offer expert advice and assistance, so you can find the perfect rental equipment for your needs.</p>
+    <p>Thank you for choosing Yuki Shop. We look forward to being a part of your winter adventures!</p>
+
+    <h2>How to Rent Items</h2>
+    <p>Renting items at Yuki Shop is easy and convenient. Follow these simple steps to reserve your gear:</p>
+    <ol>
+        <li><strong>Browse our Inventory:</strong> Visit the <a href="{{ url_for('main.home') }}">Home</a> page to explore our wide range of winter sports equipment.</li>
+        <li><strong>Log In or Register:</strong> If you haven't already, log in to your account or create a new one by visiting the <a href="{{ url_for('main.register_login') }}">Register/Login</a> page.</li>
+        <li><strong>Check Availability:</strong> Make sure the items you chose are available for renting.</li>
+        <li><strong>Reserve Your Items:</strong> After logging in, go to your selected items and click the "Book" button.</li>
+        <li><strong>Pick Up Your Gear:</strong> Visit our store on the rental start date to pick up your gear. Our friendly staff will assist you with any questions or adjustments.</li>
+    </ol>
+    <p>We recommend booking your rental items in advance, especially during peak seasons, to ensure availability. If you have any questions or need assistance, feel free to contact us. Enjoy your skiing and snowboarding adventures!</p>
+
+    <h2>Admin Page Access</h2>
+    <p>Please note that only admin users have access to the Admin page. If you need admin access, please contact our support team for assistance.</p>
+</div>
+{% endblock %}

@@ -1,12 +1,12 @@
-# Inventory
+Inventory
 An inventory management system that allows users to book and release items seamlessly, with admin privileges for enhanced control.
 
-# !! users for testing !! #
+!! users for testing !!
 user1, user2, user3, admin
 password: test
 
 
-# SQLITE3 Insert - Sample Data already loaded in the db
+SQLITE3 Insert - Sample Data already loaded in the db
 INSERT INTO Inventory (id, number, description, registration_date, status, booked) VALUES (1, 101, 'Ski Boots - Salomon X Pro', '2025-02-01', 'OK', 'Free');
 INSERT INTO Inventory (id, number, description, registration_date, status, booked) VALUES (2, 102, 'Snowboard - Burton Custom', '2025-02-05', 'OK', 'Free');
 INSERT INTO Inventory (id, number, description, registration_date, status, booked) VALUES (3, 103, 'Ski Jacket - North Face', '2025-02-08', 'Damaged', 'Free');

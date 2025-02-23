@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yuki Shop</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        body {
+            background-color: #f0f8ff;
+            color: #333;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #fff;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        header h1 {
+            margin: 0;
+            color: #4682b4;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        header img {
+            margin-left: 10px;
+            width: 50px;
+            height: 50px;
+        }
+        nav {
+            margin: 20px 0;
+        }
+        nav a {
+            background-color: #4682b4;
+            color: #fff;
+            padding: 10px 20px;
+            text-decoration: none;
+            margin: 0 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        nav a:hover {
+            background-color: #87ceeb;
+        }
+        .logout-btn {
+            background-color: #fff;
+            color: #4682b4;
+            border: 1px solid #4682b4;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .logout-btn:hover {
+            background-color: #4682b4;
+            color: #fff;
+        }
+        main {
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Yuki Shop <img src="{{ url_for('static', filename='snowflake.gif') }}" alt="Snowflake GIF"></h1>
+        <nav>
+            <a href="{{ url_for('main.register_login') }}">Register/Login</a>
+            <a href="{{ url_for('main.home') }}">Home</a>
+            <a href="{{ url_for('main.admin') }}">Admin</a>
+            <a href="{{ url_for('main.about') }}">About</a>
+            <a href="{{ url_for('main.logout') }}" class="logout-btn">Logout</a>
+        </nav>
+    </header>
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+</body>
+</html>

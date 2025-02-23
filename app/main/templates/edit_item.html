@@ -1,0 +1,53 @@
+{% extends "layout.html" %}
+{% block content %}
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        <div>
+            {% for item, message in messages %}
+                <div style="position: relative; margin-bottom: 15px; padding: 10px; border-radius: 4px; width: 90%; margin: 10px auto; text-align: center; border: 1px solid transparent;
+                            {% if category == 'success' %}
+                                background-color: #dff0d8; border-color: #d0e9c6; color: #3c763d;
+                            {% elif category == 'error' %}
+                                background-color: #f2dede; border-color: #ebccd1; color: #a94442;
+                            {% else %}
+                                background-color: #d9edf7; border-color: #bcdff1; color: #31708f;
+                            {% endif %}"
+                     class="flash-message">
+
+                    <!-- X button to close the message -->
+                    <button onclick="this.parentElement.style.display='none';" style="position: absolute; top: 5px; right: 10px; background: none; border: none; font-size: 16px; color: inherit; cursor: pointer;">&times;</button>
+
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endwith %}
+
+<div style="padding: 20px;">
+    <h1 style="color: #4682b4; font-size: 24px;">Edit Item</h1>
+    <form action="{{ url_for('main.edit_item', id=item.id) }}" method="POST" style="display: flex; flex-direction: column; gap: 10px; background-color: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+        <label for="number" style="color: #4682b4;">Number:</label>
+        <input type="text" step="0.01" id="number" name="number" value="{{ item.number }}" required style="padding: 8px; border: 1px solid #4682b4; border-radius: 4px;">
+
+        <label for="description" style="color: #4682b4;">Description:</label>
+        <input type="text" id="description" name="description" value="{{ item.description }}" style="padding: 8px; border: 1px solid #4682b4; border-radius: 4px;">
+
+        <label for="registration_date" style="color: #4682b4;">Registration date:</label>
+        <input type="text" id="registration_date" name="registration_date" value="{{ item.registration_date }}" style="padding: 8px; border: 1px solid #4682b4; border-radius: 4px;">
+
+        <label for="status" style="color: #4682b4;">Status:</label>
+        <select id="status" name="status" required style="margin-bottom: 10px; width: 100%;">
+                <option value="OK">OK</option>
+                <option value="Damaged">Damaged</option>
+            	<option value="Sent for maintenance">Sent for maintenance</option>
+        </select>
+
+        <div style="display: flex; gap: 10px;">
+            <button type="submit" style="background-color: #4682b4; color: #fff; padding: 10px; border: none; border-radius: 4px; cursor: pointer; font-size: 14px;">Save Changes</button>
+            <button type="button" onclick="window.location.href='{{ url_for('main.admin') }}'" style="background-color: #DE3163; color: #fff; padding: 10px; border: none; border-radius: 4px; cursor: pointer; font-size: 14px;">Cancel</button>
+        </div>
+    </form>
+</div>
+{% endblock %}
